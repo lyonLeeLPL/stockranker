@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.database import database,Base,engine
-from app.routers import users,votes,stocks
+from app.routers import votes,stocks
 import uvicorn
 from starlette.middleware.cors import CORSMiddleware
 
@@ -12,7 +12,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-app.include_router(users.router)
+
 app.include_router(votes.router)
 app.include_router(stocks.router)
 

@@ -1,5 +1,9 @@
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+li {
+  border: 1px solid blue;
+  margin: 5px;
+  padding: 5px;
 }

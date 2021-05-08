@@ -1,20 +1,21 @@
-from fastapi import APIRouter, Depends
-from app.dependencies import get_db, current_user
+from fastapi import APIRouter, Depends, Security
+from app.dependencies import get_db
 from sqlalchemy.orm import Session
-from app import models,services,schemas
+from app import models, services, schemas
+from fastapi_auth0 import Auth0, Auth0User
 
 
 router = APIRouter(tags=["votes"])
 
 
 @router.post("/vote")
-def create_vote(vote_req: schemas.VoteRequest,user=Depends(current_user()),db: Session = Depends(get_db)):
-    votetype = vote_req.votetype
-    symbol = vote_req.symbol
+def create_vote(req: schemas.VoteRequest, db: Session = Depends(get_db)):
     try:
         vote = services.vote.create_vote(
-            votetype=votetype, symbol=symbol, user=user, db=db
+            votetype=req.votetype,
+            user_id=req.user_id,
+            stock_id=req.stock_id,
+            db=db
         )
-        return vote.__dict__
     except Exception as e:
         raise Exception(e)

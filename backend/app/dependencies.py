@@ -1,5 +1,5 @@
 from app.database import SessionLocal
-from app.models.User import fastapi_users
+
 
 def get_db():
     db = SessionLocal()
@@ -7,7 +7,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-def current_user():
-    return fastapi_users.current_user()
-    
